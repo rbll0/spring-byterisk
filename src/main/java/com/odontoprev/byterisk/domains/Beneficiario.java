@@ -1,5 +1,6 @@
 package com.odontoprev.byterisk.domains;
 
+import com.odontoprev.byterisk.domains.enums.Ranking;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Generated;
@@ -32,12 +33,12 @@ public class Beneficiario {
 
     private String endereco;
 
-//    @Enumerated(EnumType.STRING)
-//    @Column(length = 2)
-//    private Ranking ranking;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "id_plano", nullable = false)
-//    private Plano plano;
+    @Enumerated(EnumType.STRING)
+    @Column(length = 2)
+    private Ranking ranking;
+
+    @ManyToOne
+    @JoinColumn(name = "id_plano", nullable = false)
+    private Plano plano;
 
 }

@@ -1,5 +1,6 @@
 package com.odontoprev.byterisk.domains;
 
+import com.odontoprev.byterisk.domains.enums.StatusConsulta;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -23,11 +24,11 @@ public class Consulta {
 
     private String motivoConsulta;
 
-//    @Enumerated(EnumType.STRING)
-//    private StatusConsulta status;
+    @Enumerated(EnumType.STRING)
+    private StatusConsulta status;
 
-//    @ManyToOne
-//    @JoinColumn(name = "id_profissional")
-//    private Profissional profissional;
+    @ManyToOne
+    @JoinColumn(name = "id_profissional")
+    private Profissional profissional;
 
 }

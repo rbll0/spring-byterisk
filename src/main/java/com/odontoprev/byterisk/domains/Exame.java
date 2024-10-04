@@ -25,7 +25,7 @@ public class Exame {
 
     private String resultadoExame;
 
-//    @ManyToOne
-//    @JoinColumn(name = "id_profissional")
-//    private Profissional profissional;
+    @ManyToOne
+    @JoinColumn(name = "id_profissional")
+    private Profissional profissional;
 }
