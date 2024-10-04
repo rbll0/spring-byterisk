@@ -1,4 +1,4 @@
-package com.odontoprev.byterisk.enums;
+package com.odontoprev.byterisk.domains.enums;
 
 public enum TipoSinistro {
     Preventivo,
