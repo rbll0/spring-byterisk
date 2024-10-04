@@ -15,7 +15,7 @@ public class SwaggerConfig {
                 .info(new Info()
                         .title("ByteRisk API")
                         .version("1.0")
-                        .description("API para a aplicação ByteRisk da OdontoPrev, focadoem redução de sinistros odontológicos.")
+                        .description("API para a aplicação ByteRisk da OdontoPrev, focado em redução de sinistros odontológicos.")
                         .license(new License().name("Apache 2.0").url("http://springdoc.org")));
     }
 }
