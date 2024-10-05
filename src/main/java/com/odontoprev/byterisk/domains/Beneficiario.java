@@ -3,9 +3,6 @@ package com.odontoprev.byterisk.domains;
 import com.odontoprev.byterisk.domains.enums.Ranking;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Generated;
-
-import java.lang.classfile.Label;
 import java.time.LocalDate;
 
 @Data
