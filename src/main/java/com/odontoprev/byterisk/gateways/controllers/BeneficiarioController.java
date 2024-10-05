@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/beneficiario")
+@RequestMapping("/beneficiarios")
 @RequiredArgsConstructor
 public class BeneficiarioController {
 
@@ -32,13 +32,13 @@ public class BeneficiarioController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     public ResponseEntity<BeneficiarioResponse> buscarBeneficiarioPorId(@PathVariable Long id) {
         BeneficiarioResponse response = beneficiarioService.buscarBeneficiarioPorId(id);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/todos")
+    @GetMapping()
     public ResponseEntity<List<BeneficiarioResponse>> buscarBeneficiarios() {
         List<BeneficiarioResponse> response = beneficiarioService.buscarBeneficiarios();
         return new ResponseEntity<>(response, HttpStatus.OK);
