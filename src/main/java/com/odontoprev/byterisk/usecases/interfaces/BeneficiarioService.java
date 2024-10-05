@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public interface BeneficiarioService {
     BeneficiarioResponse criarBeneficiario(BeneficiarioRequest request);
-    BeneficiarioResponse atualizarBeneficiario(BeneficiarioRequest request);
+    BeneficiarioResponse atualizarBeneficiario(Long id,BeneficiarioRequest request);
 
     BeneficiarioResponse buscarBeneficiarioPorId(Long id);
 
