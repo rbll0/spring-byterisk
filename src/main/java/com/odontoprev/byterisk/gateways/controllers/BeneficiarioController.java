@@ -32,13 +32,13 @@ public class BeneficiarioController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping
     public ResponseEntity<BeneficiarioResponse> buscarBeneficiarioPorId(@PathVariable Long id) {
         BeneficiarioResponse response = beneficiarioService.buscarBeneficiarioPorId(id);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("/todos")
     public ResponseEntity<List<BeneficiarioResponse>> buscarBeneficiarios() {
         List<BeneficiarioResponse> response = beneficiarioService.buscarBeneficiarios();
         return new ResponseEntity<>(response, HttpStatus.OK);
