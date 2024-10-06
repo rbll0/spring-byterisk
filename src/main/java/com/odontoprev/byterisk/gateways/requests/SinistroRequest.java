@@ -6,6 +6,10 @@ import lombok.Data;
 
 import java.time.LocalDate;
 
+/**
+ * Classe que representa a requisição de um sinistro odontológico. Usada para registrar ou
+ * atualizar informações de sinistros.
+ */
 @Data
 public class SinistroRequest {
 

@@ -3,6 +3,10 @@ package com.odontoprev.byterisk.gateways.responses;
 import com.odontoprev.byterisk.domains.enums.Ranking;
 import lombok.Data;
 
+/**
+ * Classe que representa a resposta com os dados de um beneficiário. Usada para enviar as informações
+ * do beneficiário nas respostas da API.
+ */
 @Data
 public class BeneficiarioResponse {
 

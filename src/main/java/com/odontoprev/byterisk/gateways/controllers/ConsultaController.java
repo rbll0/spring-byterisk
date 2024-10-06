@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controlador para gerenciar operações relacionadas às consultas odontológicas.
+ * Fornece endpoints para criar, atualizar, buscar e deletar consultas.
+ */
+
 @RestController
 @RequestMapping("/consulta")
 @RequiredArgsConstructor
@@ -18,30 +23,61 @@ public class ConsultaController {
 
     private final ConsultaService consultaService;
 
+    /**
+     * Endpoint para criar uma nova consulta.
+     *
+     * @param request dados da consulta a ser criada
+     * @return resposta contendo a consulta criada e o status HTTP 201
+     */
     @PostMapping
     public ResponseEntity<ConsultaResponse> criarConsulta(@Valid @RequestBody ConsultaRequest request) {
         ConsultaResponse response = consultaService.criarConsulta(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+
+    /**
+     * Endpoint para atualizar uma consulta existente.
+     *
+     * @param id ID da consulta a ser atualizada
+     * @param request dados atualizados da consulta
+     * @return resposta contendo a consulta atualizada e o status HTTP 200
+     */
     @PutMapping("/{id}")
     public ResponseEntity<ConsultaResponse> atualizarConsulta(@PathVariable Long id, @Valid @RequestBody ConsultaRequest request) {
         ConsultaResponse response = consultaService.atualizarConsulta(id, request);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    /**
+     * Endpoint para buscar uma consulta pelo ID.
+     *
+     * @param id ID da consulta
+     * @return resposta contendo a consulta encontrada e o status HTTP 200
+     */
     @GetMapping("/{id}")
     public ResponseEntity<ConsultaResponse> buscarConsultaPorId(@PathVariable Long id) {
         ConsultaResponse response = consultaService.buscarConsultaPorId(id);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    /**
+     * Endpoint para buscar todas as consultas.
+     *
+     * @return lista de consultas e o status HTTP 200
+     */
     @GetMapping
     public ResponseEntity<List<ConsultaResponse>> buscarConsultas() {
         List<ConsultaResponse> response = consultaService.buscarConsultas();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    /**
+     * Endpoint para deletar uma consulta pelo ID.
+     *
+     * @param id ID da consulta a ser deletada
+     * @return status HTTP 204 (sem conteúdo)
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarConsulta(@PathVariable Long id) {
         consultaService.deletarConsulta(id);

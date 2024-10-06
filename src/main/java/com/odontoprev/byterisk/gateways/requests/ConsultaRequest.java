@@ -6,6 +6,10 @@ import lombok.Data;
 
 import java.time.LocalDate;
 
+
+/**
+ * Classe que representa a requisição de uma consulta odontológica. Usada para agendar ou atualizar consultas.
+ */
 @Data
 public class ConsultaRequest {
 

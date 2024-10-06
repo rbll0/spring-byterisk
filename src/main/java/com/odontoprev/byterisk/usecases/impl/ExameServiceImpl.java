@@ -13,6 +13,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Implementação do serviço de Exame. Contém a lógica para criar, atualizar, buscar e deletar exames.
+ */
+
 @Service
 @RequiredArgsConstructor
 public class ExameServiceImpl implements ExameService {
@@ -21,7 +25,12 @@ public class ExameServiceImpl implements ExameService {
     private final BeneficiarioRepository beneficiarioRepository;
     private final ProfissionalRepository profissionalRepository;
 
-
+    /**
+     * Cria um novo exame com os dados fornecidos na requisição.
+     *
+     * @param request dados do novo exame
+     * @return o exame criado como resposta
+     */
     @Override
     public ExameResponse criarExame(ExameRequest request) {
         Exame exame = new Exame();
@@ -39,7 +48,13 @@ public class ExameServiceImpl implements ExameService {
         return mapToResponse(salvo);
     }
 
-
+    /**
+     * Atualiza um exame existente com os novos dados fornecidos.
+     *
+     * @param id ID do exame a ser atualizado
+     * @param request dados atualizados do exame
+     * @return o exame atualizado como resposta
+     */
     @Override
     public ExameResponse atualizarExame(Long id, ExameRequest request) {
         Exame exame = exameRepository.findById(id)
@@ -58,6 +73,12 @@ public class ExameServiceImpl implements ExameService {
         return mapToResponse(atualizado);
     }
 
+    /**
+     * Busca um exame pelo ID.
+     *
+     * @param id ID do exame
+     * @return o exame encontrado como resposta
+     */
     @Override
     public ExameResponse buscarExamePorId(Long id) {
         Exame exame = exameRepository.findById(id)
@@ -65,6 +86,11 @@ public class ExameServiceImpl implements ExameService {
         return mapToResponse(exame);
     }
 
+    /**
+     * Retorna uma lista com todos os exames cadastrados.
+     *
+     * @return lista de exames como resposta
+     */
     @Override
     public List<ExameResponse> buscarExames() {
         return exameRepository.findAll().stream()
@@ -72,10 +98,22 @@ public class ExameServiceImpl implements ExameService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Deleta um exame pelo ID.
+     *
+     * @param id ID do exame a ser deletado
+     */
     @Override
     public void deletarExame(Long id) {
         exameRepository.deleteById(id);
     }
+
+    /**
+     * Mapeia a entidade Exame para ExameResponse.
+     *
+     * @param exame o exame a ser mapeado
+     * @return o objeto ExameResponse correspondente
+     */
     private ExameResponse mapToResponse(Exame exame) {
         ExameResponse response = new ExameResponse();
         response.setIdExame(exame.getIdExame());

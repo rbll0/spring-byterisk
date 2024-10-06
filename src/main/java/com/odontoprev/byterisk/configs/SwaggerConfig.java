@@ -6,9 +6,18 @@ import io.swagger.v3.oas.models.info.License;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * Configuração para o Swagger/OpenAPI.
+ * Define as informações da API ByteRisk, como título, versão e licença.
+ */
 @Configuration
 public class SwaggerConfig {
 
+    /**
+     * Define a configuração personalizada do OpenAPI para a documentação da API.
+     *
+     * @return objeto OpenAPI com as informações configuradas da API
+     */
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()

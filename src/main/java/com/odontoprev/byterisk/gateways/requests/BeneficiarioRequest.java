@@ -8,6 +8,11 @@ import lombok.Data;
 
 import java.time.LocalDate;
 
+
+/**
+ * Classe que representa a requisição de um beneficiário. Usada para criar ou atualizar os
+ * dados de um beneficiário.
+ */
 @Data
 public class BeneficiarioRequest {
 

@@ -6,6 +6,11 @@ import lombok.Data;
 
 import java.time.LocalDate;
 
+/**
+ * Classe que representa a resposta com os dados de um sinistro odontológico. Usada para enviar
+ * as informações do sinistro nas respostas da API.
+ */
+
 @Data
 public class SinistroResponse {
 

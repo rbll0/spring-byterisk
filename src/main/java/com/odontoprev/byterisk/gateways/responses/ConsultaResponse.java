@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.time.LocalDate;
 
+/**
+ * Classe que representa a resposta com os dados de uma consulta. Usada para enviar as informações da consulta nas respostas da API.
+ */
 @Data
 public class ConsultaResponse {
 
