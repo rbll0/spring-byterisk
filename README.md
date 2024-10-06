@@ -63,7 +63,7 @@
 ### Diagrama de Classes
 ![Diagrama de Classes](./documents/images/Diagrama%20de%20Classes.png)
 ### Diagrama ER
-![Diagrama ER](./documents/images/Diagrama de Entidade e Relacionamento.png)
+![Diagrama ER](./documents/images/Diagrama%20de%20Entidade%20e%20xRelacionamento.png)
 ## 3.5 Link para o Vídeo de Apresentação
 
 [Link para o vídeo de apresentação](LINK)
