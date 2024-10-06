@@ -61,9 +61,9 @@
 ## 3.4 Imagens dos Diagramas
 
 ### Diagrama de Classes
-
+![Diagrama de Classes](./documents/images/Diagrama%20de%20Classes.png)
 ### Diagrama ER
-
+![Diagrama ER](./documents/images/Diagrama de Entidade e Relacionamento.png)
 ## 3.5 Link para o Vídeo de Apresentação
 
 [Link para o vídeo de apresentação](LINK)
@@ -113,3 +113,18 @@ Os testes de integração foram realizados utilizando o **Postman**. Para execut
 2. Importe o arquivo no Postman:
    - No Postman, clique em **Import** e selecione o arquivo.
 3. Execute os testes da API diretamente no Postman.
+
+## 3.7 Cronograma de Desenvolvimento
+
+
+| **Atividade**                           | **Responsável**                     | **Data de Início** | **Data de Término** | **Status**          |
+|-----------------------------------------|-------------------------------------|-------------------|---------------------|---------------------|
+| Definição da Arquitetura do Sistema      | Gustavo Rabelo Frere (RM553326)     | 05/10/2024        | 05/10/2024          | Concluído           |
+| Criação das Classes de Domínio           | Gustavo Rabelo Frere (RM553326)     | 05/10/2024        | 05/10/2024          | Concluído           |
+| Desenvolvimento dos Controllers          | Gustavo Rabelo Frere (RM553326)     | 05/10/2024        | 05/10/2024          | Concluído           |
+| Implementação dos Serviços (Service)     | Gustavo Rabelo Frere (RM553326)     | 05/10/2024        | 05/10/2024          | Concluído           |
+| Criação dos Repositories                 | Gustavo Rabelo Frere (RM553326)     | 05/10/2024        | 05/10/2024          | Concluído           |
+| Testes com Postman                       | Felipe Arcanjo Matos dos Anjos (RM554018) | 05/10/2024        | 05/10/2024          | Concluído           |
+| Documentação (README.md e JavaDoc)       | Felipe Arcanjo Matos dos Anjos (RM554018) | 05/10/2024        | 05/10/2024          | Concluído           |
+| Exportação e Apresentação de Testes      | Marcelo Vieira Junior (RM553640)    | 05/10/2024        | 05/10/2024          | Concluído        |
+| Finalização do Projeto e Submissão       | Equipe                              | 05/10/2024        | 05/10/2024          | Concluído           |
