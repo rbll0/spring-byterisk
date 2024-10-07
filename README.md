@@ -66,7 +66,7 @@
 ![Diagrama ER](./documents/images/Diagrama%20de%20Entidade%20e%20Relacionamento.png)
 ## 3.5 Link para o Vídeo de Apresentação
 
-[Link para o vídeo de apresentação](LINK)
+[Link para o vídeo de apresentação](https://youtu.be/3RSNVQ6kvew)
 
 ## 3.6 Listagem de Todos os Endpoints (Documentação da API)
 
