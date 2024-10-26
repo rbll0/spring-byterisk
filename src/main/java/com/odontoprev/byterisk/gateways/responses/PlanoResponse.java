@@ -1,6 +1,7 @@
 package com.odontoprev.byterisk.gateways.responses;
 
 import lombok.Data;
+import org.springframework.hateoas.RepresentationModel;
 
 /**
  * Classe que representa a resposta com os dados de um plano odontológico.
@@ -8,7 +9,7 @@ import lombok.Data;
  */
 
 @Data
-public class PlanoResponse {
+public class PlanoResponse extends RepresentationModel<PlanoResponse> {
 
     private Long idPlano;
     private String nomePlano;

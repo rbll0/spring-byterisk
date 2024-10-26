@@ -3,6 +3,7 @@ package com.odontoprev.byterisk.gateways.responses;
 
 import com.odontoprev.byterisk.domains.enums.TipoSinistro;
 import lombok.Data;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDate;
 
@@ -12,7 +13,7 @@ import java.time.LocalDate;
  */
 
 @Data
-public class SinistroResponse {
+public class SinistroResponse extends RepresentationModel<SinistroResponse> {
 
     private Long idSinistro;
     private String nomeBeneficiario;
