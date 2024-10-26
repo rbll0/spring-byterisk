@@ -1,6 +1,7 @@
 package com.odontoprev.byterisk.gateways.responses;
 
 import lombok.Data;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDate;
 
@@ -10,7 +11,7 @@ import java.time.LocalDate;
  * do exame nas respostas da API.
  */
 @Data
-public class ExameResponse {
+public class ExameResponse extends RepresentationModel<ExameResponse> {
 
     private Long idExame;
     private String nomeBeneficiario;
