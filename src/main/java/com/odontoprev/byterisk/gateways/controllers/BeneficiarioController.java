@@ -6,6 +6,8 @@ import com.odontoprev.byterisk.gateways.responses.BeneficiarioResponse;
 import com.odontoprev.byterisk.usecases.interfaces.BeneficiarioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +36,7 @@ public class BeneficiarioController {
     @PostMapping
     public ResponseEntity<BeneficiarioResponse> criarBeneficiario(@Valid @RequestBody BeneficiarioRequest request){
         BeneficiarioResponse response = beneficiarioService.criarBeneficiario(request);
+        addHateoasLinks(response);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
@@ -48,6 +51,7 @@ public class BeneficiarioController {
     @PutMapping("/{id}")
     public ResponseEntity<BeneficiarioResponse> atualizarBeneficiario(@PathVariable Long id, @Valid @RequestBody BeneficiarioRequest request) {
         BeneficiarioResponse response = beneficiarioService.atualizarBeneficiario(id, request);
+        addHateoasLinks(response);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -61,6 +65,7 @@ public class BeneficiarioController {
     @GetMapping("/{id}")
     public ResponseEntity<BeneficiarioResponse> buscarBeneficiarioPorId(@PathVariable Long id) {
         BeneficiarioResponse response = beneficiarioService.buscarBeneficiarioPorId(id);
+        addHateoasLinks(response);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -73,6 +78,7 @@ public class BeneficiarioController {
     @GetMapping()
     public ResponseEntity<List<BeneficiarioResponse>> buscarBeneficiarios() {
         List<BeneficiarioResponse> response = beneficiarioService.buscarBeneficiarios();
+        response.forEach(this::addHateoasLinks);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -87,5 +93,15 @@ public class BeneficiarioController {
     public ResponseEntity<Void> deletarBeneficiario(@PathVariable Long id) {
         beneficiarioService.deletarBeneficiario(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    private void addHateoasLinks(BeneficiarioResponse response) {
+        Link selfLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(BeneficiarioController.class)
+                .buscarBeneficiarioPorId(response.getIdBeneficiario())).withSelfRel();
+        Link addBeneficiarioLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(BeneficiarioController.class)
+                .buscarBeneficiarios()).withRel("all-beneficiarios");
+
+        response.add(selfLink);
+        response.add(addBeneficiarioLink);
     }
 }
