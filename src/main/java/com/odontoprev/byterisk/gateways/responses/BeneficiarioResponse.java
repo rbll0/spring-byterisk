@@ -2,13 +2,15 @@ package com.odontoprev.byterisk.gateways.responses;
 
 import com.odontoprev.byterisk.domains.enums.Ranking;
 import lombok.Data;
+import oracle.jdbc.driver.Representation;
+import org.springframework.hateoas.RepresentationModel;
 
 /**
  * Classe que representa a resposta com os dados de um beneficiário. Usada para enviar as informações
  * do beneficiário nas respostas da API.
  */
 @Data
-public class BeneficiarioResponse {
+public class BeneficiarioResponse extends RepresentationModel<BeneficiarioResponse> {
 
     private Long idBeneficiario;
     private String nome;
