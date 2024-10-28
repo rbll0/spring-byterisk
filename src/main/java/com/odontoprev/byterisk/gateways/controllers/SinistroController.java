@@ -5,6 +5,8 @@ import com.odontoprev.byterisk.gateways.responses.SinistroResponse;
 import com.odontoprev.byterisk.usecases.interfaces.SinistroService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,19 +33,21 @@ public class SinistroController {
     @PostMapping
     public ResponseEntity<SinistroResponse> criarSinistro(@Valid @RequestBody SinistroRequest request) {
         SinistroResponse response = sinistroService.criarSinistro(request);
+        addHateoasLinks(response);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     /**
      * Endpoint para atualizar um sinistro existente.
      *
-     * @param id ID do sinistro a ser atualizado
+     * @param id      ID do sinistro a ser atualizado
      * @param request dados atualizados do sinistro
      * @return resposta contendo o sinistro atualizado e o status HTTP 200
      */
     @PutMapping("/{id}")
     public ResponseEntity<SinistroResponse> atualizarSinistro(@PathVariable Long id, @Valid @RequestBody SinistroRequest request) {
         SinistroResponse response = sinistroService.atualizarSinistro(id, request);
+        addHateoasLinks(response);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -56,6 +60,7 @@ public class SinistroController {
     @GetMapping("/{id}")
     public ResponseEntity<SinistroResponse> buscarSinistroPorId(@PathVariable Long id) {
         SinistroResponse response = sinistroService.buscarSinistroPorId(id);
+        addHateoasLinks(response);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -67,6 +72,7 @@ public class SinistroController {
     @GetMapping
     public ResponseEntity<List<SinistroResponse>> buscarSinistros() {
         List<SinistroResponse> response = sinistroService.buscarSinistros();
+        response.forEach(this::addHateoasLinks);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -82,4 +88,18 @@ public class SinistroController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    /**
+     * Adiciona links HATEOAS a um objeto SinistroResponse.
+     *
+     * @param response objeto SinistroResponse a ser modificado com links HATEOAS
+     */
+    private void addHateoasLinks(SinistroResponse response) {
+        Link selfLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(SinistroController.class)
+                .buscarSinistroPorId(response.getIdSinistro())).withSelfRel();
+        Link allSinistrosLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(SinistroController.class)
+                .buscarSinistros()).withRel("all-sinistros");
+
+        response.add(selfLink);
+        response.add(allSinistrosLink);
+    }
 }
