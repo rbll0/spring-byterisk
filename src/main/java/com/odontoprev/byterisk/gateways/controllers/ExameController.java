@@ -5,6 +5,8 @@ import com.odontoprev.byterisk.gateways.responses.ExameResponse;
 import com.odontoprev.byterisk.usecases.interfaces.ExameService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +34,7 @@ public class ExameController {
     @PostMapping
     public ResponseEntity<ExameResponse> criarExame(@Valid @RequestBody ExameRequest request) {
         ExameResponse response = exameService.criarExame(request);
+        addHateoasLinks(response);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
@@ -45,6 +48,7 @@ public class ExameController {
     @PutMapping("/{id}")
     public ResponseEntity<ExameResponse> atualizarExame(@PathVariable Long id, @Valid @RequestBody ExameRequest request) {
         ExameResponse response = exameService.atualizarExame(id, request);
+        addHateoasLinks(response);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -57,6 +61,7 @@ public class ExameController {
     @GetMapping("/{id}")
     public ResponseEntity<ExameResponse> buscarExamePorId(@PathVariable Long id) {
         ExameResponse response = exameService.buscarExamePorId(id);
+        addHateoasLinks(response);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -68,6 +73,7 @@ public class ExameController {
     @GetMapping
     public ResponseEntity<List<ExameResponse>> buscarExames() {
         List<ExameResponse> response = exameService.buscarExames();
+        response.forEach(this::addHateoasLinks);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -81,5 +87,20 @@ public class ExameController {
     public ResponseEntity<Void> deletarExame(@PathVariable Long id) {
         exameService.deletarExame(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    /**
+     * Adiciona links HATEOAS a um objeto ExameResponse.
+     *
+     * @param response objeto ExameResponse a ser modificado com links HATEOAS
+     */
+    private void addHateoasLinks(ExameResponse response) {
+        Link selfLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ExameController.class)
+                .buscarExamePorId(response.getIdExame())).withSelfRel();
+        Link allExamesLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ExameController.class)
+                .buscarExames()).withRel("all-exames");
+
+        response.add(selfLink);
+        response.add(allExamesLink);
     }
 }
