@@ -5,6 +5,8 @@ import com.odontoprev.byterisk.gateways.responses.PlanoResponse;
 import com.odontoprev.byterisk.usecases.interfaces.PlanoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +34,7 @@ public class PlanoController {
     @PostMapping
     public ResponseEntity<PlanoResponse> criarPlano(@Valid @RequestBody PlanoRequest request) {
         PlanoResponse response = planoService.criarPlano(request);
+        addHateoasLinks(response);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
@@ -45,6 +48,7 @@ public class PlanoController {
     @PutMapping("/{id}")
     public ResponseEntity<PlanoResponse> atualizarPlano(@PathVariable Long id, @Valid @RequestBody PlanoRequest request) {
         PlanoResponse response = planoService.atualizarPlano(id, request);
+        addHateoasLinks(response);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -57,6 +61,7 @@ public class PlanoController {
     @GetMapping("/{id}")
     public ResponseEntity<PlanoResponse> buscarPlanoPorId(@PathVariable Long id) {
         PlanoResponse response = planoService.buscarPlanoPorId(id);
+        addHateoasLinks(response);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -68,6 +73,7 @@ public class PlanoController {
     @GetMapping
     public ResponseEntity<List<PlanoResponse>> buscarPlanos() {
         List<PlanoResponse> response = planoService.buscarPlanos();
+        response.forEach(this::addHateoasLinks);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -81,5 +87,20 @@ public class PlanoController {
     public ResponseEntity<Void> deletarPlano(@PathVariable Long id) {
         planoService.deletarPlano(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    /**
+            * Adiciona links HATEOAS a um objeto PlanoResponse.
+     *
+             * @param response objeto PlanoResponse a ser modificado com links HATEOAS
+     */
+    private void addHateoasLinks(PlanoResponse response) {
+        Link selfLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PlanoController.class)
+                .buscarPlanoPorId(response.getIdPlano())).withSelfRel();
+        Link allPlanosLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PlanoController.class)
+                .buscarPlanos()).withRel("all-planos");
+
+        response.add(selfLink);
+        response.add(allPlanosLink);
     }
 }
