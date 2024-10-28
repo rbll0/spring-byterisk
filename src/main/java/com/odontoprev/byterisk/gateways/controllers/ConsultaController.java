@@ -5,6 +5,8 @@ import com.odontoprev.byterisk.gateways.responses.ConsultaResponse;
 import com.odontoprev.byterisk.usecases.interfaces.ConsultaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +34,7 @@ public class ConsultaController {
     @PostMapping
     public ResponseEntity<ConsultaResponse> criarConsulta(@Valid @RequestBody ConsultaRequest request) {
         ConsultaResponse response = consultaService.criarConsulta(request);
+        addHateoasLinks(response);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
@@ -46,6 +49,7 @@ public class ConsultaController {
     @PutMapping("/{id}")
     public ResponseEntity<ConsultaResponse> atualizarConsulta(@PathVariable Long id, @Valid @RequestBody ConsultaRequest request) {
         ConsultaResponse response = consultaService.atualizarConsulta(id, request);
+        addHateoasLinks(response);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -58,6 +62,7 @@ public class ConsultaController {
     @GetMapping("/{id}")
     public ResponseEntity<ConsultaResponse> buscarConsultaPorId(@PathVariable Long id) {
         ConsultaResponse response = consultaService.buscarConsultaPorId(id);
+        addHateoasLinks(response);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -69,6 +74,7 @@ public class ConsultaController {
     @GetMapping
     public ResponseEntity<List<ConsultaResponse>> buscarConsultas() {
         List<ConsultaResponse> response = consultaService.buscarConsultas();
+        response.forEach(this::addHateoasLinks);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -82,5 +88,20 @@ public class ConsultaController {
     public ResponseEntity<Void> deletarConsulta(@PathVariable Long id) {
         consultaService.deletarConsulta(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    /**
+     * Adiciona links HATEOAS para um objeto ConsultaResponse.
+     *
+     * @param response objeto ConsultaResponse a ser modificado com links HATEOAS
+     */
+    private void addHateoasLinks(ConsultaResponse response) {
+        Link selfLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ConsultaController.class)
+                .buscarConsultaPorId(response.getIdConsulta())).withSelfRel();
+        Link allConsultasLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ConsultaController.class)
+                .buscarConsultas()).withRel("all-consultas");
+
+        response.add(selfLink);
+        response.add(allConsultasLink);
     }
 }
