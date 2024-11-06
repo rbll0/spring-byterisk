@@ -16,6 +16,7 @@
 
 - **Java 17**
 - **Maven**
+- **Docker e Docker Compose**
 - **Oracle Database** (ou uma instância na nuvem)
 
 ### Passos para execução
@@ -32,9 +33,9 @@
    
 3. Configure as credenciais de acesso ao banco de dados no arquivo application.properties.
 
-4. Execute a aplicação:
+4. Para rodar a aplicação, usando Docker Compose:
    ```bash
-   mvn spring-boot:run
+    docker-compose up -d
    ```
 5. Acesse a documentação da API no Swagger:
     ```
@@ -57,18 +58,39 @@
 
 # Habilita o console do H2 (se for necessário para testes locais)
 - spring.h2.console.enabled=true
+## 3.4 Dockerfile
+   ```
+   # Dockerfile
+   FROM openjdk:17-slim
+   WORKDIR /app
+   COPY target/byterisk-0.0.1-SNAPSHOT.jar app.jar
+   ENTRYPOINT ["java", "-jar", "app.jar"]
 
-## 3.4 Imagens dos Diagramas
+   ```   
+## 3.5 docker-compose.yml
+    ```
+      services:
+         app:
+            build:
+               context: .
+               dockerfile: Dockerfile
+            ports:
+               - "8080:8080"  # mapeia a porta 8080 do container para a porta 8080 da máquina host
+            environment:
+               - SPRING_PROFILES_ACTIVE=prod  # ajuste conforme necessário
+
+      ```
+## 3.6 Imagens dos Diagramas
 
 ### Diagrama de Classes
 ![Diagrama de Classes](./documents/images/Diagrama%20de%20Classes.png)
 ### Diagrama ER
 ![Diagrama ER](./documents/images/Diagrama%20de%20Entidade%20e%20Relacionamento.png)
-## 3.5 Link para o Vídeo de Apresentação
+## 3.7 Link para o Vídeo de Apresentação
 
 [Link para o vídeo de apresentação](https://youtu.be/3RSNVQ6kvew)
 
-## 3.6 Listagem de Todos os Endpoints (Documentação da API)
+## 3.8 Listagem de Todos os Endpoints (Documentação da API)
 
 ### Beneficiário
 - `POST /beneficiarios`: Criar novo beneficiário
@@ -114,7 +136,7 @@ Os testes de integração foram realizados utilizando o **Postman**. Para execut
    - No Postman, clique em **Import** e selecione o arquivo.
 3. Execute os testes da API diretamente no Postman.
 
-## 3.7 Cronograma de Desenvolvimento
+## 3.9 Cronograma de Desenvolvimento
 
 
 | **Atividade**                           | **Responsável**                     | **Data de Início** | **Data de Término** | **Status**          |
