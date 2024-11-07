@@ -86,6 +86,8 @@
 ![Diagrama de Classes](./documents/images/Diagrama%20de%20Classes.png)
 ### Diagrama ER
 ![Diagrama ER](./documents/images/Diagrama%20de%20Entidade%20e%20Relacionamento.png)
+### Diagrama de Entidade e Relacionamento
+![Diagrama de Entidade e Relacionamento](./documents/images/DER-BYTERISK.png)
 ## 3.7 Link para o Vídeo de Apresentação
 
 [Link para o vídeo de apresentação](https://youtu.be/3RSNVQ6kvew)
