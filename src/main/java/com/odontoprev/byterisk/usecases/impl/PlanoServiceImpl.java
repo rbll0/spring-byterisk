@@ -1,6 +1,7 @@
 package com.odontoprev.byterisk.usecases.impl;
 
 import com.odontoprev.byterisk.domains.Plano;
+import com.odontoprev.byterisk.gateways.procedures.PlanoProcedures;
 import com.odontoprev.byterisk.gateways.repositories.PlanoRepository;
 import com.odontoprev.byterisk.gateways.requests.PlanoRequest;
 import com.odontoprev.byterisk.gateways.responses.PlanoResponse;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 /**
@@ -19,7 +21,7 @@ import java.util.stream.Collectors;
 public class PlanoServiceImpl implements PlanoService {
 
     private final PlanoRepository planoRepository;
-
+    private final PlanoProcedures planoProcedures;
 
     /**
      * Cria um novo plano com os dados fornecidos na requisição.
@@ -29,16 +31,15 @@ public class PlanoServiceImpl implements PlanoService {
      */
     @Override
     public PlanoResponse criarPlano(PlanoRequest request) {
-        Plano plano = new Plano();
-        plano.setNomePlano(request.getNomePlano());
-        plano.setTipoPlano(request.getTipoPlano());
-        plano.setValorMensal(request.getValorMensal());
-
-        Plano salvo = planoRepository.save(plano);
-        return mapToResponse(salvo);
-
+        planoProcedures.inserirPlano(
+                request.getNomePlano(),
+                request.getTipoPlano(),
+                request.getValorMensal()
+        );
+        Plano plano = planoRepository.findFirstByNomePlanoOrderByIdPlanoDesc(request.getNomePlano())
+                .orElseThrow(() -> new NoSuchElementException("Plano não encontrado após inserção."));
+        return mapToResponse(plano);
     }
-
 
     /**
      * Atualiza um plano existente com os novos dados fornecidos.
@@ -49,13 +50,15 @@ public class PlanoServiceImpl implements PlanoService {
      */
     @Override
     public PlanoResponse atualizarPlano(Long id, PlanoRequest request) {
-        Plano plano = planoRepository.findById(id).orElseThrow();
-        plano.setNomePlano(request.getNomePlano());
-        plano.setTipoPlano(request.getTipoPlano());
-        plano.setValorMensal(request.getValorMensal());
-
-        Plano atualizado = planoRepository.save(plano);
-        return mapToResponse(atualizado);
+        planoProcedures.atualizarPlano(
+                id,
+                request.getNomePlano(),
+                request.getTipoPlano(),
+                request.getValorMensal()
+        );
+        Plano plano = planoRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Plano não encontrado com ID: " + id));
+        return mapToResponse(plano);
     }
 
     /**
@@ -66,8 +69,9 @@ public class PlanoServiceImpl implements PlanoService {
      */
     @Override
     public PlanoResponse buscarPlanoPorId(Long id) {
-        Plano planoId = planoRepository.findById(id).orElseThrow();
-        return mapToResponse(planoId);
+        Plano plano = planoRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Plano não encontrado com ID: " + id));
+        return mapToResponse(plano);
     }
 
     /**
@@ -90,6 +94,7 @@ public class PlanoServiceImpl implements PlanoService {
      */
     @Override
     public void deletarPlano(Long id) {
+        planoProcedures.deletarPlano(id);
         planoRepository.deleteById(id);
     }
 
