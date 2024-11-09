@@ -149,7 +149,7 @@ Os testes de integração foram realizados utilizando o **Postman**. Para execut
 | Desenvolvimento dos Controllers               | Gustavo Rabelo Frere (RM553326)     | 05/10/2024         | 06/11/2024          | Concluído           |
 | Implementação dos Serviços (Service)          | Gustavo Rabelo Frere (RM553326)     | 05/10/2024         | 06/11/2024          | Concluído           |
 | Criação dos Repositories                      | Gustavo Rabelo Frere (RM553326)     | 05/10/2024         | 06/11/2024          | Concluído           |
-| Testes com Postman                            | Felipe Arcanjo Matos dos Anjos (RM554018) | 05/10/2024 | 0/11/2024           | Concluído           |
+| Testes com Postman                            | Felipe Arcanjo Matos dos Anjos (RM554018) | 05/10/2024 | 06/11/2024          | Concluído           |
 | Documentação (README.md e JavaDoc)            | Felipe Arcanjo Matos dos Anjos (RM554018) | 05/10/2024 | 06/11/2024          | Concluído           |
 | Exportação e Apresentação de Testes           | Marcelo Vieira Junior (RM553640)    | 05/10/2024         | 07/11/2024          | Concluído           |
 | Finalização do Projeto e Submissão (Sprint 2) | Equipe                              | 05/10/2024         | 07/11/2024          | Concluído           |
